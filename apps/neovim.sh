@@ -1,5 +1,5 @@
 #!/bin/bash
-// python
+: python
 
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 

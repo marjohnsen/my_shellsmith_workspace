@@ -1,5 +1,5 @@
 #!/bin/bash
-// zsh
+: zsh
 
 install_build_dependencies() {
   sudo apt update

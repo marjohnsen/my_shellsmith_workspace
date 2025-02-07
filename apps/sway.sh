@@ -1,5 +1,5 @@
 #!/bin/bash
-// zsh python
+: zsh python
 
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 source "$SHELLSMITH_UTILS/meson_build_and_ninja_install.sh"
