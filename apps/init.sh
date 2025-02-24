@@ -5,6 +5,14 @@ apt_install() {
   sudo apt install curl git nodejs npm pipx wl-clipboard bat
 }
 
+git_config() {
+  git config --global user.name "Marius Johnsen"
+  git config --global user.email "marius.johnsen@outlook.com"
+  git config --global core.editor "nvim"
+  git config --global merge.tool nvimdiff
+  git config --global mergetool.nvimdiff.cmd "nvim -d \$LOCAL \$REMOTE \$BASE \$MERGED"
+}
+
 install_fonts() {
   font_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
   font_name="JetBrainsMono"
@@ -25,4 +33,5 @@ install_fonts() {
 }
 
 apt_install
+git_config
 install_fonts
