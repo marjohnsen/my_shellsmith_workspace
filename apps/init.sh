@@ -2,7 +2,8 @@
 
 apt_install() {
   sudo apt update && sudo apt upgrade
-  sudo apt install curl git nodejs npm pipx wl-clipboard bat
+  sudo apt install curl git nodejs npm pipx wl-clipboard bat nemo nemo-fileroller \
+    dbus dbus-x11 xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gnome
 }
 
 git_config() {
