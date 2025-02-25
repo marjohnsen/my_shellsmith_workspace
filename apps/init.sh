@@ -1,28 +1,34 @@
 #!/bin/bash
 
-apt_install() {
-  sudo apt update && sudo apt upgrade
-  sudo apt install curl git nodejs npm pipx wl-clipboard bat
-}
-
-install_fonts() {
-  font_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
-  font_name="JetBrainsMono"
-  font_dir="/usr/local/share/fonts"
-
-  sudo mkdir -p "$font_dir"
-  wget -q --show-progress "$font_url" -O "$font_name.tar.xz"
-  sudo tar -xf "$font_name.tar.xz" -C "$font_dir"
-  sudo fc-cache -fv >/dev/null
-  rm "$font_name.tar.xz"
-
-  if fc-list | grep -i "JetBrainsMono" >/dev/null; then
-    echo "$font_name Nerd Font installed successfully!"
-  else
-    echo "Installation failed!"
+test_admin_privileges() {
+  if [ "$(id -u)" -ne 0 ]; then
+    echo "Please run as root"
     exit 1
   fi
 }
 
-apt_install
-install_fonts
+install_brew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "eval '$(/opt/homebrew/bin/brew shellenv)'" >>~/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+}
+
+brew_install() {
+  brew tap homebrew/cask-fonts
+  brew update
+  brew install git
+  brew install wget
+  brew install curl
+  brew install ripgrep
+  brew install fd
+  brew install fzf
+  brew install fuse
+  brew install --cask mactex-no-gui
+  brew install --cask skim
+  brew install --cask firefox
+  brew install --cask font-jetbrains-mono-nerd-font
+}
+
+test_admin_privileges
+install_brew
+brew_install
