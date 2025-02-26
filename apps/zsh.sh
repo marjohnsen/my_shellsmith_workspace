@@ -3,8 +3,8 @@
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
 install_and_setup_zsh() {
-  sudo apt install zsh -y
-  chsh -s /usr/bin/zsh
+  brew upgrade zsh >/dev/null || brew intall zsh
+  chsh -s "$(which zsh)"
 }
 
 install_and_setup_ohmyzsh() {
@@ -18,7 +18,7 @@ install_and_setup_ohmyzsh() {
 }
 
 install_plugins() {
-  sudo apt install bat
+  brew install bat
 
   local plugins_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins
 

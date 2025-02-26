@@ -1,34 +1,38 @@
 #!/bin/bash
 
-test_admin_privileges() {
-  if [ "$(id -u)" -ne 0 ]; then
-    echo "Please run as root"
-    exit 1
+install_brew() {
+  xcode-select --install
+
+  # Add brew to path
+  if ! grep -q '/opt/homebrew/bin/brew shellenv' ~/.zprofile; then
+    echo -e "#Homebrew\neval '$(/opt/homebrew/bin/brew shellenv)'\n" >>~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+
+  # Update if brew is already installed, else install brew
+  if command -v brew &>/dev/null; then
+    brew update
+  else
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 }
 
-install_brew() {
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo "eval '$(/opt/homebrew/bin/brew shellenv)'" >>~/.zprofile
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-}
-
 brew_install() {
-  brew tap homebrew/cask-fonts
-  brew update
-  brew install git
-  brew install wget
-  brew install curl
-  brew install ripgrep
-  brew install fd
-  brew install fzf
-  brew install fuse
-  brew install --cask mactex-no-gui
-  brew install --cask skim
-  brew install --cask firefox
-  brew install --cask font-jetbrains-mono-nerd-font
+  brew upgrade
+
+  FORMULAE=(git wget curl ripgrep fd fzf fuse)
+  CASKS=(mactex-no-gui skim firefox font-jetbrains-mono-nerd-font)
+
+  # Install missing formulae
+  for pkg in "${FORMULAE[@]}"; do
+    brew list "$pkg" &>/dev/null || brew install "$pkg"
+  done
+
+  # Install missing casks
+  for cask in "${CASKS[@]}"; do
+    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
+  done
 }
 
-test_admin_privileges
 install_brew
 brew_install

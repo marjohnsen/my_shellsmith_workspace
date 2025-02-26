@@ -3,7 +3,7 @@
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
 install_kitty() {
-  sudo apt install kitty -y
+  brew upgrade --cask kitty >/dev/null || brew intall --cask kitty
 }
 
 configure_kitty() {
