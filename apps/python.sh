@@ -2,9 +2,9 @@
 : zsh
 
 install_build_dependencies() {
-  FORMULAE=(ncurses openssl readline sqlite3 xz zlib tcl-tk)
+  FORMULAE=(ncurses openssl readline sqlite3 xz zlib tcl-tk pipx)
   for pkg in "${FORMULAE[@]}"; do
-    brew list "$pkg" &>/dev/null || brew install "$pkg"
+    brew upgrade "$pkg" &>/dev/null || brew install "$pkg"
   done
 }
 

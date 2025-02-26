@@ -3,37 +3,53 @@
 
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
+install_lua_5_1() {
+  TMPDIR=$(mktemp -d /tmp/lua51.XXXXXX)
+  curl -L -R -o "$TMPDIR/lua-5.1.4.tar.gz" https://www.lua.org/ftp/lua-5.1.4.tar.gz
+  tar -xzf "$TMPDIR/lua-5.1.4.tar.gz" -C "$TMPDIR"
+  sudo make -C "$TMPDIR/lua-5.1.4" macosx
+  sudo make -C "$TMPDIR/lua-5.1.4" install
+  rm -rf "$TMPDIR"
+}
+
+
+brew_install() {
+  brew upgrade
+
+  FORMULAE=(luarocks imagemagick lazygit tmux)
+  CASKS=(macfuse mactex-no-gui skim)
+
+  # Install missing formulae
+  for pkg in "${FORMULAE[@]}"; do
+    brew list "$pkg" &>/dev/null || brew install "$pkg"
+  done
+
+  # Install missing casks
+  for cask in "${CASKS[@]}"; do
+    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
+  done
+}
+
 install_dependencies() {
-  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-  tar xf lazygit.tar.gz lazygit
-  sudo install lazygit /usr/local/bin
-  rm -rf lazygit lazygit.tar.gz
-
-  sudo apt install -y ripgrep fd-find texlive biber latexmk \
-    fuse imagemagick tmux curl lua5.1 luarocks fzf
-
   pipx install jupytext
-
   luarocks --lua-version=5.1 install magick --local
-
   sudo npm install -g neovim
 }
 
 install_neovim() {
-  if [ -d "/opt/nvim" ]; then
-    sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
-  fi
-
-  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-  chmod u+x nvim.appimage
-
+  [ -d "/opt/nvim" ] && sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
+  TMPDIR=$(mktemp -d /tmp/nvim.XXXXXX)
+  curl -L -o "$TMPDIR/nvim-macos-arm64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz
+  tar -xzf "$TMPDIR/nvim-macos-arm64.tar.gz" -C "$TMPDIR"
   sudo mkdir -p /opt/nvim
-  sudo mv nvim.appimage /opt/nvim/nvim
+  sudo rm -rf /opt/nvim/*
+  sudo mv "$TMPDIR/nvim-macos-arm64/"* /opt/nvim/
+  rm -rf "$TMPDIR"
+  sudo ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim
 }
 
 setup_lazyvim() {
-  safe_symlink "$SHELLSMITH_DOTFILES/nvim" "$HOME/.config/nvim"
+  safe_symlink "$SHELLSMITH_COMMON_DOTFILES/nvim" "$HOME/.config/nvim"
 }
 
 setup_nvim_pyenv() {
@@ -61,6 +77,8 @@ setup_nvim_pyenv() {
     jupyter_client jupytext ipykernel notebook
 }
 
+install_lua_5_1
+brew_install
 install_dependencies
 install_neovim
 setup_lazyvim

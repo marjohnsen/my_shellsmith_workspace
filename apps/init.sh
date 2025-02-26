@@ -17,11 +17,14 @@ install_brew() {
   fi
 }
 
+sudo apt install -y ripgrep fd-find texlive biber latexmk \
+  fuse imagemagick tmux curl lua5.1 luarocks fzf
+
 brew_install() {
   brew upgrade
 
-  FORMULAE=(git wget curl ripgrep fd fzf fuse)
-  CASKS=(mactex-no-gui skim firefox font-jetbrains-mono-nerd-font)
+  FORMULAE=(git wget curl ripgrep fd fzf node)
+  CASKS=(firefox font-jetbrains-mono-nerd-font)
 
   # Install missing formulae
   for pkg in "${FORMULAE[@]}"; do
