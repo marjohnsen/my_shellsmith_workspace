@@ -1,5 +1,7 @@
-# Change $PATH
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# Change PATH
+export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
+export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-bat)
@@ -24,7 +26,7 @@ export TERMINAL=kitty
 set -o vi
 
 # Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
+export eYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"

@@ -3,20 +3,33 @@
 
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
-install_lua_5_1() {
-  TMPDIR=$(mktemp -d /tmp/lua51.XXXXXX)
-  curl -L -R -o "$TMPDIR/lua-5.1.4.tar.gz" https://www.lua.org/ftp/lua-5.1.4.tar.gz
-  tar -xzf "$TMPDIR/lua-5.1.4.tar.gz" -C "$TMPDIR"
-  sudo make -C "$TMPDIR/lua-5.1.4" macosx
-  sudo make -C "$TMPDIR/lua-5.1.4" install
-  rm -rf "$TMPDIR"
-}
+# install_lua_5_1() {
+#   TMPDIR=$(mktemp -d /tmp/lua51.XXXXXX)
+#   curl -L -R -o "$TMPDIR/lua-5.1.5.tar.gz" https://www.lua.org/ftp/lua-5.1.5.tar.gz
+#   tar -xzf "$TMPDIR/lua-5.1.5.tar.gz" -C "$TMPDIR"
+#   make -C "$TMPDIR/lua-5.1.5" macosx
+#   make -C "$TMPDIR/lua-5.1.5" INSTALL_TOP="$HOME/opt/lua-5.1.5" install
+#   rm -rf "$TMPDIR"
+#   mkdir -p ~/.local/bin
+#   ln -sf "$HOME/opt/lua-5.1.5/bin/lua" ~/.local/bin/lua5.1
+# }
 
+# install_luarocks() {
+#   TMPDIR=$(mktemp -d /tmp/luarocks.XXXXXX)
+#   curl -L -R -o "$TMPDIR/luarocks-3.11.1.tar.gz" https://luarocks.org/releases/luarocks-3.11.1.tar.gz
+#   tar -xzf "$TMPDIR/luarocks-3.11.1.tar.gz" -C "$TMPDIR"
+#   "$TMPDIR/luarocks-3.11.1/configure" --prefix="$HOME/opt/luarocks" --with-lua="$HOME/opt/lua-5.1.5" --lua-suffix=5.1 --with-lua-include="$HOME/opt/lua-5.1.5/include"
+#   make -C "$TMPDIR/luarocks-3.11.1" build
+#   make -C "$TMPDIR/luarocks-3.11.1" install
+#   rm -rf "$TMPDIR"
+#   mkdir -p ~/.local/bin
+#   ln -sf "$HOME/opt/luarocks/bin/luarocks" ~/.local/bin/luarocks
+# }
 
 brew_install() {
   brew upgrade
 
-  FORMULAE=(luarocks imagemagick lazygit tmux)
+  FORMULAE=(imagemagick ghostscript pkg-config lazygit tmux)
   CASKS=(macfuse mactex-no-gui skim)
 
   # Install missing formulae
@@ -32,14 +45,14 @@ brew_install() {
 
 install_dependencies() {
   pipx install jupytext
-  luarocks --lua-version=5.1 install magick --local
+  # luarocks --lua-version=5.1 install magick --local --force
   sudo npm install -g neovim
 }
 
 install_neovim() {
   [ -d "/opt/nvim" ] && sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
   TMPDIR=$(mktemp -d /tmp/nvim.XXXXXX)
-  curl -L -o "$TMPDIR/nvim-macos-arm64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz
+  curl -L -o "$TMPDIR/nvim-macos-arm64.tar.gz" https://github.com/neovim/neovim/releases/download/stable/nvim-macos-arm64.tar.gz
   tar -xzf "$TMPDIR/nvim-macos-arm64.tar.gz" -C "$TMPDIR"
   sudo mkdir -p /opt/nvim
   sudo rm -rf /opt/nvim/*
@@ -77,9 +90,10 @@ setup_nvim_pyenv() {
     jupyter_client jupytext ipykernel notebook
 }
 
-install_lua_5_1
+# install_lua_5_1
+# install_luarocks
 brew_install
 install_dependencies
 install_neovim
 setup_lazyvim
-setup_nvim_pyenv
+# setup_nvim_pyenv
