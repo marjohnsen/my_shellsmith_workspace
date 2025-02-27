@@ -3,29 +3,6 @@
 
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
-# install_lua_5_1() {
-#   TMPDIR=$(mktemp -d /tmp/lua51.XXXXXX)
-#   curl -L -R -o "$TMPDIR/lua-5.1.5.tar.gz" https://www.lua.org/ftp/lua-5.1.5.tar.gz
-#   tar -xzf "$TMPDIR/lua-5.1.5.tar.gz" -C "$TMPDIR"
-#   make -C "$TMPDIR/lua-5.1.5" macosx
-#   make -C "$TMPDIR/lua-5.1.5" INSTALL_TOP="$HOME/opt/lua-5.1.5" install
-#   rm -rf "$TMPDIR"
-#   mkdir -p ~/.local/bin
-#   ln -sf "$HOME/opt/lua-5.1.5/bin/lua" ~/.local/bin/lua5.1
-# }
-
-# install_luarocks() {
-#   TMPDIR=$(mktemp -d /tmp/luarocks.XXXXXX)
-#   curl -L -R -o "$TMPDIR/luarocks-3.11.1.tar.gz" https://luarocks.org/releases/luarocks-3.11.1.tar.gz
-#   tar -xzf "$TMPDIR/luarocks-3.11.1.tar.gz" -C "$TMPDIR"
-#   "$TMPDIR/luarocks-3.11.1/configure" --prefix="$HOME/opt/luarocks" --with-lua="$HOME/opt/lua-5.1.5" --lua-suffix=5.1 --with-lua-include="$HOME/opt/lua-5.1.5/include"
-#   make -C "$TMPDIR/luarocks-3.11.1" build
-#   make -C "$TMPDIR/luarocks-3.11.1" install
-#   rm -rf "$TMPDIR"
-#   mkdir -p ~/.local/bin
-#   ln -sf "$HOME/opt/luarocks/bin/luarocks" ~/.local/bin/luarocks
-# }
-
 brew_install() {
   brew upgrade
 
@@ -45,7 +22,6 @@ brew_install() {
 
 install_dependencies() {
   pipx install jupytext
-  # luarocks --lua-version=5.1 install magick --local --force
   sudo npm install -g neovim
 }
 
@@ -90,10 +66,8 @@ setup_nvim_pyenv() {
     jupyter_client jupytext ipykernel notebook
 }
 
-# install_lua_5_1
-# install_luarocks
 brew_install
 install_dependencies
 install_neovim
 setup_lazyvim
-# setup_nvim_pyenv
+setup_nvim_pyenv
