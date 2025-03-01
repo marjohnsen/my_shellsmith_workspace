@@ -62,7 +62,7 @@ setup_git_template_hook() {
   cat >"$template_dir/hooks/post-checkout" <<'EOF'
 #!/bin/sh
 remote_url=$(git config --get remote.origin.url)
-if echo "$remote_url" | grep -q "git@private.com:"; then
+if echo "$remote_url" | grep -q "git@private:"; then
   git config user.email "marius.johnsen@outlook.com"
   echo "Local email set to private (marius.johnsen@outlook.com)"
 else
