@@ -1,9 +1,11 @@
 #!/bin/bash
 
+set -e
+
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
 install_kitty() {
-  sudo apt install kitty -y
+  sudo apt-get install kitty -y
 }
 
 configure_kitty() {
