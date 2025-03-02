@@ -54,7 +54,7 @@ generate_ssh_key_pair() {
     echo ""
     read -p "Do you want to create a new SSH key pair? (y/n): " choice < /dev/tty
     if [[ "$choice" =~ ^[Yy]([Ee][Ss])?$ ]]; then
-      rm -f "$KEY_FILE" "$KEY_FILE"/.pub
+      rm -f "$KEY_FILE" "$KEY_FILE".pub
       ssh-keygen -t ed25519 -C "marius.johnsen@outlook.com" -f "$KEY_FILE" -N "" -q
       echo "Overwriting existing SSH key pair.."
     fi
