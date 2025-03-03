@@ -14,6 +14,7 @@
     "lazyvim.plugins.extras.editor.leap",
     "lazyvim.plugins.extras.editor.mini-diff",
     "lazyvim.plugins.extras.editor.refactoring",
+    "lazyvim.plugins.extras.editor.telescope",
     "lazyvim.plugins.extras.lang.clangd",
     "lazyvim.plugins.extras.lang.docker",
     "lazyvim.plugins.extras.lang.markdown",
@@ -31,8 +32,9 @@
     "lazyvim.plugins.extras.util.octo",
     "lazyvim.plugins.extras.util.project"
   ],
+  "install_version": 7,
   "news": {
     "NEWS.md": "10960"
   },
-  "version": 7
+  "version": 8
 }
