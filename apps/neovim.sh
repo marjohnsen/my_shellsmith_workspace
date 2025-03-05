@@ -33,7 +33,7 @@ install_neovim() {
 }
 
 setup_lazyvim() {
-  safe_symlink "$SHELLSMITH_COMMON_DOTFILES/nvim" "$HOME/.config/nvim"
+  safe_symlink "$SHELLSMITH_SHARED_DOTFILES/nvim" "$HOME/.config/nvim"
 }
 
 setup_nvim_pyenv() {
