@@ -23,9 +23,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# neovim
-export PATH="$PATH:/opt/nvim/"
-
 function nvimvenv {
   if [[ -e "$VIRTUAL_ENV" && -f "$VIRTUAL_ENV/bin/activate" ]]; then
     source "$VIRTUAL_ENV/bin/activate"

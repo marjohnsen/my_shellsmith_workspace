@@ -16,23 +16,24 @@ install_dependencies() {
   pipx install jupytext & pipx ensurepath
 
   sudo npm install -g neovim
-}
-
+} 
+  
 install_neovim() {
-  if [ -d "/opt/nvim" ]; then
-    sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
-  fi
+  tmp_dir=$(mktemp -d /tmp/nvim.XXXXXX)
 
-  curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+  sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
+  curl -Lo "$tmp_dir/nvim.appimage" https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage
+  chmod u+x "$tmp_dir/nvim.appimage"
 
-  chmod u+x nvim.appimage
+  env -C "$tmp_dir" "$tmp_dir/nvim.appimage" --appimage-extract
+  sudo mv "$tmp_dir/squashfs-root" /opt/nvim
+  sudo ln -sf /opt/nvim/AppRun /usr/local/bin/nvim
 
-  sudo mkdir -p /opt/nvim
-  sudo mv nvim.appimage /opt/nvim/nvim
+  rm -rf "$tmp_dir"
 }
 
 setup_lazyvim() {
-  safe_symlink "$SHELLSMITH_SHARED_DOTFILES/nvim" "$HOME/.config/nvim"
+  safe_symlink "$SHELLSMITH_COMMON_DOTFILES/nvim" "$HOME/.config/nvim"
 }
 
 setup_nvim_pyenv() {
