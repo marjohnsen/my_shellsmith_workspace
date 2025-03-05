@@ -10,7 +10,7 @@ install_kitty() {
 
 configure_kitty() {
   mkdir -p "$HOME/.config/kitty/"
-  safe_symlink "$SHELLSMITH_COMMON_DOTFILES/kitty" "$HOME/.config/kitty/kitty.conf"
+  safe_symlink "$SHELLSMITH_SHARED_DOTFILES/kitty" "$HOME/.config/kitty/kitty.conf"
 }
 
 configure_theme() {

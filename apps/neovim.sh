@@ -10,12 +10,10 @@ install_dependencies() {
   sudo install lazygit /usr/local/bin
   rm -rf lazygit lazygit.tar.gz
 
-  sudo apt install -y ripgrep fd-find texlive biber latexmk \
-    fuse imagemagick tmux curl lua5.1 luarocks fzf
+  sudo apt-get build-dep -y neovim
+  sudo apt-get install -y ripgrep fd-find fzf wl-clipboard texlive biber latexmk fuse imagemagick tmux 
 
-  pipx install jupytext
-
-  luarocks --lua-version=5.1 install magick --local
+  pipx install jupytext & pipx ensurepath
 
   sudo npm install -g neovim
 }
@@ -25,7 +23,8 @@ install_neovim() {
     sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
   fi
 
-  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+  curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+
   chmod u+x nvim.appimage
 
   sudo mkdir -p /opt/nvim
@@ -33,7 +32,7 @@ install_neovim() {
 }
 
 setup_lazyvim() {
-  safe_symlink "$SHELLSMITH_COMMON_DOTFILES/nvim" "$HOME/.config/nvim"
+  safe_symlink "$SHELLSMITH_SHARED_DOTFILES/nvim" "$HOME/.config/nvim"
 }
 
 setup_nvim_pyenv() {

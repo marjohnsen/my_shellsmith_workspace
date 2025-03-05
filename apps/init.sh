@@ -11,7 +11,7 @@ apt_install() {
   # System utils
   sudo apt-get install -y network-manager
   # CLI utils
-  sudo apt-get install -y  wget curl bat git wl-clipboard
+  sudo apt-get install -y  wget curl bat git
 }
 
 install_node_npm() {
