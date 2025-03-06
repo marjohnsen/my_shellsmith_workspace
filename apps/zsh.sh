@@ -4,7 +4,7 @@ source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
 install_and_setup_zsh() {
   brew upgrade zsh >/dev/null || brew intall zsh
-  chsh -s "$(which zsh)"
+  sudo chsh -s "$(which zsh)" $(whoami)
 }
 
 install_and_setup_ohmyzsh() {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 install_brew() {
-  xcode-select --install
+  xcode-select -p &>/dev/null || xcode-select --install
 
   # Add brew to path
   if ! grep -q '/opt/homebrew/bin/brew shellenv' ~/.zprofile; then
