@@ -8,11 +8,20 @@ setup_ssh_keys() {
   local private_key="$HOME/.ssh/private"
   local ssh_config="$HOME/.ssh/config"
 
-  rm -f "$equinor_key" "$equinor_key.pub" "$private_key" "$private_key.pub" "$ssh_config"
-  ssh-keygen -t rsa -b 4096 -C "mariuj@equinor.com" -f "$equinor_key" -N "" -q
-  ssh-keygen -t rsa -b 4096 -C "marius.johnsen@outlook.com" -f "$private_key" -N "" -q
-  chmod 600 "$equinor_key" "$equinor_key.pub" "$private_key" "$private_key.pub"
-  echo 'Generated SSH keys..'
+  regenerate_keys() {
+    rm -f "$equinor_key" "$equinor_key.pub" "$private_key" "$private_key.pub"
+    ssh-keygen -t rsa -b 4096 -C "mariuj@equinor.com" -f "$equinor_key" -N "" -q
+    ssh-keygen -t rsa -b 4096 -C "marius.johnsen@outlook.com" -f "$private_key" -N "" -q
+    chmod 600 "$equinor_key" "$equinor_key.pub" "$private_key" "$private_key.pub"
+    echo "Generated SSH keys.."
+  }
+
+  if [[ -f "$equinor_key" && -f "$private_key" ]]; then
+    read -r -p "SSH keys already exist. Do you want to regenerate them? (yes/no)" confirm </dev/tty
+    [[ "$confirm" =~ ^[Yy]([Ee][Ss])?$ ]] && regenerate_keys || echo "Keeping existing SSH keys."
+  else
+    regenerate_keys
+  fi
 
   cat >"$ssh_config" <<EOF
 Host equinor
@@ -75,6 +84,7 @@ EOF
   git config --global init.templateDir "$template_dir"
   echo 'Global git template hook set..'
 }
+
 
 setup_ssh_keys
 setup_ssh_agent
