@@ -66,6 +66,7 @@ if echo "$remote_url" | grep -q "git@private:"; then
   git config user.email "marius.johnsen@outlook.com"
   echo "Local email set to private (marius.johnsen@outlook.com)"
 else
+  git config user.email "mariuj@equinor.com"
   echo "Local email remains equinor (mariuj@equinor.com)"
 fi
 EOF
