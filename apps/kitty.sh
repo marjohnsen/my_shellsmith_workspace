@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
 install_kitty() {

@@ -11,7 +11,7 @@ install_dependencies() {
   rm -rf lazygit lazygit.tar.gz
 
   sudo apt-get build-dep -y neovim
-  sudo apt-get install -y ripgrep fd-find fzf wl-clipboard texlive biber latexmk fuse imagemagick tmux 
+  sudo apt-get install -y wl-clipboard ripgrep fd-find fzf texlive biber latexmk fuse imagemagick tmux 
 
   pipx install jupytext & pipx ensurepath
 

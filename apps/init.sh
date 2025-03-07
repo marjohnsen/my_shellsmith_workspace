@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 apt_install() {
   sudo apt-get update
   sudo apt-get full-upgrade -y
