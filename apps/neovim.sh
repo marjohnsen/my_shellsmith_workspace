@@ -7,7 +7,7 @@ brew_install() {
   brew upgrade
 
   FORMULAE=(imagemagick ghostscript pkg-config lazygit tmux)
-#  CASKS=(mactex-no-gui)
+  #  CASKS=(mactex-no-gui)
 
   # Install missing formulae
   for pkg in "${FORMULAE[@]}"; do
@@ -15,9 +15,9 @@ brew_install() {
   done
 
   # Install missing casks
-#  for cask in "${CASKS[@]}"; do
-#    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
-#  done
+  #  for cask in "${CASKS[@]}"; do
+  #    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
+  #  done
 }
 
 install_dependencies() {
@@ -67,8 +67,8 @@ setup_nvim_pyenv() {
     jupyter_client jupytext ipykernel notebook
 }
 
-# brew_install
-# install_dependencies
-# install_neovim
+brew_install
+install_dependencies
+install_neovim
 setup_lazyvim
-# setup_nvim_pyenv
+setup_nvim_pyenv
