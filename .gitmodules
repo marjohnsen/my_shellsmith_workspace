@@ -4,5 +4,5 @@
 	branch = main
 [submodule "shared"]
 	path = shared
-	url = git@github.com:marjohnsen/shellsmith_workspace.git
+	url = git@github.com:marjohnsen/my_shellsmith_workspace.git
 	branch = shared
