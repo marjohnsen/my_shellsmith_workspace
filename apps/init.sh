@@ -9,14 +9,16 @@ apt_install() {
   # System utils
   sudo apt-get install -y network-manager
   # CLI utils
-  sudo apt-get install -y  wget curl bat git
+  sudo apt-get install -y wget curl bat git
+  # Build tools
+  sudo apt-get install -y build-essential cmake meson ninja-build
 }
 
 install_node_npm() {
   echo "Installing Node.js LTS (22.x) and npm..."
   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
   sudo apt install -y nodejs
-} 
+}
 
 install_fonts() {
   font_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
@@ -47,10 +49,10 @@ git_setup() {
 
 generate_ssh_key_pair() {
   KEY_FILE="$HOME/.ssh/id_ed25519"
-  
+
   if [[ -f "$KEY_FILE" ]]; then
     echo ""
-    read -p "Do you want to create a new SSH key pair? (y/n): " choice < /dev/tty
+    read -p "Do you want to create a new SSH key pair? (y/n): " choice </dev/tty
     if [[ "$choice" =~ ^[Yy]([Ee][Ss])?$ ]]; then
       rm -f "$KEY_FILE" "$KEY_FILE".pub
       ssh-keygen -t ed25519 -C "marius.johnsen@outlook.com" -f "$KEY_FILE" -N "" -q

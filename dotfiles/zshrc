@@ -36,7 +36,23 @@ function nvimvenv {
 alias nvim=nvimvenv
 alias vi=nvim
 
-# swayfx
-export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-export WLR_BACKENDS=drm
-export WLR_SESSION=seatd
+# Sway
+export XDG_SESSION_TYPE=wayland
+export XDG_CURRENT_DESKTOP=sway
+
+export MOZ_ENABLE_WAYLAND=1
+
+export QT_QPA_PLATFORM=wayland
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+export CLUTTER_BACKEND=wayland
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+export PIPEWIRE_RUNTIME_DIR="$XDG_RUNTIME_DIR/pipewire"
+
+wl-paste --watch clipman store &
+
+if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+    exec sway
+fi

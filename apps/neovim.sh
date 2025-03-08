@@ -11,13 +11,14 @@ install_dependencies() {
   rm -rf lazygit lazygit.tar.gz
 
   sudo apt-get build-dep -y neovim
-  sudo apt-get install -y wl-clipboard ripgrep fd-find fzf texlive biber latexmk fuse imagemagick tmux 
+  sudo apt-get install -y build-essential wl-clipboard ripgrep fd-find fzf texlive biber latexmk fuse imagemagick libmagickwand-dev unzip
 
-  pipx install jupytext & pipx ensurepath
+  pipx install jupytext &
+  pipx ensurepath
 
   sudo npm install -g neovim
-} 
-  
+}
+
 install_neovim() {
   tmp_dir=$(mktemp -d /tmp/nvim.XXXXXX)
 
@@ -64,4 +65,4 @@ setup_nvim_pyenv() {
 install_dependencies
 install_neovim
 setup_lazyvim
-setup_nvim_pyenv
+# setup_nvim_pyenv

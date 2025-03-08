@@ -1,11 +1,4 @@
 #--------------------------#
-#         execute          #
-#--------------------------#
-
-exec pkill mako
-exec mako &
-
-#--------------------------#
 #        Variables         #
 #--------------------------#
 
@@ -17,49 +10,25 @@ set $right l
 set $term kitty
 set $menu rofi -show drun -theme style.rasi
 
+
 #--------------------------#
 #       Appearance         #
 #--------------------------#
 
-# Corners
-corner_radius 10
-
-# Gaps
-gaps inner 10
-
 # Border
 default_border none
-
-# Opacity
-for_window [app_id=".*"] opacity 0.9
-
-# Blur
-blur on
-blur_xray off
-blur_passes 2
-blur_radius 5
-
-# Shadows
-shadows on
-shadows_on_csd on
-shadow_blur_radius 20
-shadow_color #0000007F
-
-# Dimming inactive windows
-default_dim_inactive 0.3
-dim_inactive_colors.unfocused #000000FF
-dim_inactive_colors.urgent #900000FF
-
-# Scratchpad settings
-scratchpad_minimize disable
+default_floating_border none
+for_window [class=".*"] border pixel 3
+client.focused #FF8800 #FF8800 #FF8800 #FF8800
+client.unfocused #444444 #444444 #444444 #444444
 
 # Wallpaper
-output * bg ~/.config/sway/scripts/wallpaper.jpg fill
+output * bg ~/.config/sway/misc/wallpaper.jpg fill
+
 
 #--------------------------#
 #     Key Bindings         #
 #--------------------------#
-
 
 # Basics
 bindsym $mod+Return exec $term
@@ -68,7 +37,6 @@ bindsym $mod+d exec $menu
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
-bindsym $mod+Shift+m exec sh $HOME/.config/sway/scripts/switch.sh
 
 # Focus movement
 bindsym $mod+$left focus left
@@ -147,12 +115,11 @@ bindsym $mod+r mode "resize"
 #          waybar          #
 #--------------------------#
 
-exec $HOME/.config/sway/scripts/switch.sh 0
 include $HOME/.config/sway/bar
 
 #--------------------------#
 #       lock-screen        #
 #--------------------------#
 
-bindsym $mod+escape exec ~/.config/sway/scripts/lock_screen.sh
+bindsym $mod+escape exec ~/.config/sway/misc/lock_screen.sh
 
