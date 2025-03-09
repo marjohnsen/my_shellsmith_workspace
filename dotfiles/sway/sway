@@ -1,4 +1,11 @@
 #--------------------------#
+#         Startup          #
+#--------------------------#
+
+exec --no-startup-id mako
+
+
+#--------------------------#
 #        Variables         #
 #--------------------------#
 
@@ -16,14 +23,10 @@ set $menu rofi -show drun -theme style.rasi
 #--------------------------#
 
 # Border
-default_border none
-default_floating_border none
-for_window [class=".*"] border pixel 3
-client.focused #FF8800 #FF8800 #FF8800 #FF8800
-client.unfocused #444444 #444444 #444444 #444444
+for_window [app_id=".*"] border none
 
 # Wallpaper
-output * bg $HOME/.config/sway/wallpaper.jpg fill
+output * bg ~/.config/sway/wallpaper.jpg fill
 
 
 #--------------------------#

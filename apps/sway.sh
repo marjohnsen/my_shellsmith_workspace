@@ -17,15 +17,15 @@ apt_get_install() {
 
   # Clipboard and Notifications
   sudo apt-get install -y \
-    wl-clipboard clipman mako-notifier
+    wl-clipboard clipman mako-notifie libnotify-bin
 
   # Brightness & Power Control
   sudo apt-get install -y \
-    brightnessctl
+    upower brightnessctl
 
   # Screenshots, Screen Capture & Wayland Portals
   sudo apt-get install -y \
-    grim slurp xdg-desktop-portal xdg-desktop-portal-wlr
+    grim slurp jq xdg-desktop-portal xdg-desktop-portal-wlr
 
   # File Management
   sudo apt-get install -y \
@@ -33,10 +33,29 @@ apt_get_install() {
 
   # Network & Bluetooth
   sudo apt-get install -y \
-    network-manager-gnome blueman bluez
+    network-manager blueman bluez
+}
 
+system_services() {
   # Enable PipeWire Services
   systemctl --user enable --now pipewire wireplumber pipewire-pulse
+
+  # Setup Network Manager
+  sudo systemctl start NetworkManager
+  sudo systemctl enable NetworkManager
+
+  sudo tee /etc/network/interfaces >/dev/null <<'EOF'
+auto lo
+iface lo inet loopback
+EOF
+
+  sudo tee /etc/NetworkManager/NetworkManager.conf >/dev/null <<'EOF'
+[main]
+plugins=ifupdown,keyfile
+[ifupdown]
+managed=true
+EOF
+  sudo systemctl restart NetworkManager
 }
 
 build_and_install_wayland_rofi() {
@@ -57,17 +76,17 @@ build_and_install_wayland_rofi() {
 setup_swayfx() {
   mkdir -p "$HOME/.config/sway"
   mkdir -p "$HOME/.config/mako"
-  mkdir -p "$HOME/.config/rofi"
 
-  safe_symlink "$SHELLSMITH_DOTFILES/sway/sway" "$HOME/.config/sway/config"
-  safe_symlink "$SHELLSMITH_DOTFILES/sway/mako" "$HOME/.config/mako/config"
+  safe_symlink "$SHELLSMITH_DOTFILES"/sway/sway "$HOME/.config/sway/config"
+  safe_symlink "$SHELLSMITH_DOTFILES"/sway/mako "$HOME/.config/mako/config"
 
-  safe_symlink "$SHELLSMITH_MISC/lock_screen.sh" "$HOME/.config/sway/lock_screen.sh"
-  safe_symlink "$SHELLSMITH_MISC/wallpaper.jpg" "$HOME/.config/sway/wallpaper.jpg"
-  safe_symlink "$SHELLSMITH_MISC/swaybar" "$HOME/.config/sway/swaybar"
-  safe_symlink "$SHELLSMITH_MISC/rofi" "$HOME/.config/rofi"
+  safe_symlink "$SHELLSMITH_MISC"/sway/lock_screen.sh "$HOME/.config/sway/lock_screen.sh"
+  safe_symlink "$SHELLSMITH_MISC"/sway/wallpaper.jpg "$HOME/.config/sway/wallpaper.jpg"
+  safe_symlink "$SHELLSMITH_MISC"/sway/swaybar "$HOME/.config/sway/swaybar"
+  safe_symlink "$SHELLSMITH_MISC"/sway/rofi "$HOME/.config/rofi"
 }
 
 apt_get_install
+system_services
 build_and_install_wayland_rofi
 setup_swayfx

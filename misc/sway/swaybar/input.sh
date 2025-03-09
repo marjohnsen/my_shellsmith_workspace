@@ -10,7 +10,7 @@ MEM=$(free -h | awk '/^Mem:/ {printf "%.1f/%.1fGB", $3, $2}')
 
 DISK=$(df -h / | awk 'NR==2 {printf "%s/%s", $3, $2}')
 
-WIFI_SSID=$(iwgetid -r 2>/dev/null || echo "No WiFi")
+WIFI_SSID=$(/usr/sbin/iwgetid -r 2>/dev/null || echo "No WiFi")
 if grep -q ":" /proc/net/wireless; then
   SIGNAL=$(awk 'NR==3 {print int($3 * 100 / 70)}' /proc/net/wireless)
   IP=$(hostname -I | awk '{print $1}' || echo "No IP")

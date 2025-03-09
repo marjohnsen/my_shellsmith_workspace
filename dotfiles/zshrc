@@ -1,3 +1,6 @@
+# PATH
+export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+
 # Oh my zsh 
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -12,6 +15,7 @@ fi
 
 # Terminal
 export TERMINAL=kitty
+export KITTY_ENABLE_WAYLAND=1
 set -o vi
 
 # batcat

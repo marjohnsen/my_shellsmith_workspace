@@ -6,8 +6,6 @@ apt_install() {
 
   # Desktop utils
   sudo apt-get install -y firefox-esr ranger
-  # System utils
-  sudo apt-get install -y network-manager
   # CLI utils
   sudo apt-get install -y wget curl bat git
   # Build tools
