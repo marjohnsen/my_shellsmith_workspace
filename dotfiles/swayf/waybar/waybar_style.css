@@ -1,0 +1,174 @@
+/* ------------ */
+/* -- Colors -- */
+/* ------------ */
+@define-color bg-darker #282828;
+@define-color bg-dark #3c3836;
+@define-color fg-light #fbf1c7;
+@define-color highlight #b57614;
+@define-color warning #d79921;
+@define-color critical #9d0006;
+@define-color success #98971a;
+@define-color accent #427b58;
+@define-color blue #076678;
+
+/* -------------------- */
+/* -- Global Styling -- */
+/* -------------------- */
+* {
+  font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF";
+  text-shadow: none;
+  font-size: 16px;
+  min-width: 15px;
+  min-height: 30px;
+  border-radius: 8px;
+  box-shadow: none;
+  border: none;
+}
+
+/* -------------------- */
+/* -- Windows etc... -- */
+/* -------------------- */
+window#waybar {
+  transition: background-color 0.5s;
+  background: alpha(@bg-dark, 0.92);
+  color: lighter(@highlight);
+}
+
+menu,
+tooltip {
+  border: 1px solid lighter(@highlight);
+  background: alpha(@bg-dark, 0.8);
+  color: lighter(@highlight);
+}
+
+menu label,
+tooltip label {
+  font-size: 14px;
+  color: lighter(@highlight);
+}
+
+#submap,
+#tray>.needs-attention {
+  animation: blink-active 1s linear infinite alternate;
+}
+
+/* ------------------- */
+/* -- Module groups -- */
+/* ------------------- */
+.modules-left {
+}
+
+.modules-right {
+}
+
+/* ------------- */
+/* -- Widgets -- */
+/* ------------- */
+#power-profiles-daemon,
+#custom-network,
+#custom-shutdown,
+#custom-reboot,
+#custom-logout,
+#custom-lock,
+#pulseaudio,
+#backlight,
+#battery,
+#clock {
+  background: alpha(@highlight, 0.6);
+  color: alpha(@fg-light, 1);
+  margin: 0px 3px 3px 3px;
+  border-radius: 4px;
+}
+
+#cpu {
+  margin: -8px;
+  font-size: 15px;
+}
+
+#memory {
+  margin: -7px;
+  font-size: 18px;
+}
+
+#power-profiles-daemon:hover,
+#custom-network:hover,
+#custom-shutdown:hover,
+#custom-reboot:hover,
+#custom-logout:hover,
+#custom-lock:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#battery:hover,
+#clock:hover {
+  box-shadow: 2px 2px @bg-darker;
+  margin: -1px 3px 3px 1px;
+  color: darker(@fg-light);
+}
+
+#custom-shutdown,
+#pulseaudio.muted,
+#power-profiles-daemon.performance {
+  background: alpha(@critical, 0.8);
+}
+
+#custom-reboot,
+#pulseaudio.bluetooth,
+#power-profiles-daemon.balanced {
+  background: alpha(@blue, 0.6);
+}
+
+#custom-logout,
+#power-profiles-daemon.power-saver {
+  background: alpha(@success, 0.9);
+}
+
+/* --------------- */
+/* -- Workspace -- */
+/* --------------- */
+#workspaces {
+  background: alpha(lighter(@highlight), .3);
+  color: lighter(@highlight);
+  margin: 3px 3px -9px 3px;
+  border-radius: 4px;
+}
+
+#workspaces button {
+  padding: 0 7px;
+  background: transparent;
+  color: alpha(@fg-light, 0.9);
+  border-radius: 4px;
+}
+
+#workspaces button.urgent {
+  background: alpha(@critical, 0.4);
+  color: lighter(@critical);
+  font-weight: bold;
+}
+
+#workspaces button.focused {
+  background: alpha(@highlight, 0.4);
+  color: lighter(@highlight);
+}
+
+/* ----------------------- */
+/* -- Pulseaudio Slider -- */
+/* ----------------------- */
+#pulseaudio-slider slider {
+  min-height: 0;
+  min-width: 0;
+  background-color: @fg-light;
+}
+
+#pulseaudio-slider trough {
+  min-height: 50px;
+  min-width: 10px;
+  border-radius: 5px;
+  background-color: black;
+}
+
+#pulseaudio-slider highlight {
+  min-height: 10px;
+  min-width: 10px;
+  border-radius: 5px;
+  background-color: @highlight;
+}
