@@ -82,7 +82,7 @@ build_and_install_wayland_rofi() {
   sudo ninja -C "$BUILD_DIR/build" install
 }
 
-setup_swayfx() {
+setup_sway() {
   mkdir -p "$HOME/.config/sway"
   mkdir -p "$HOME/.config/mako"
 
@@ -93,6 +93,12 @@ setup_swayfx() {
   safe_symlink "$SHELLSMITH_MISC"/sway/wallpaper.jpg "$HOME/.config/sway/wallpaper.jpg"
   safe_symlink "$SHELLSMITH_MISC"/sway/swaybar "$HOME/.config/sway/swaybar"
   safe_symlink "$SHELLSMITH_MISC"/sway/rofi "$HOME/.config/rofi"
+}
+
+setup_home() {
+  mkdir -p "$HOME/Pictures/Screenshots"
+  mkdir -p "$HOME/Downloads"
+  mkdir -p "$HOME/Documents"
 }
 
 apt_get_install
