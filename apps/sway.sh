@@ -17,7 +17,7 @@ apt_get_install() {
 
   # Clipboard and Notifications
   sudo apt-get install -y \
-    wl-clipboard clipman mako-notifie libnotify-bin
+    wl-clipboard clipman mako-notifier libnotify-bin
 
   # Brightness & Power Control
   sudo apt-get install -y \
@@ -42,7 +42,7 @@ system_services() {
 
   # Setup Network Manager
   sudo systemctl start NetworkManager
-  sudo systemctl enable NetworkManager
+  sudo systemctl enable --now NetworkManager
 
   sudo tee /etc/network/interfaces >/dev/null <<'EOF'
 auto lo
@@ -67,7 +67,16 @@ build_and_install_wayland_rofi() {
   rm -rf "$BUILD_DIR"
   mkdir -p "$BUILD_DIR"
 
-  git clone --recurse-submodules https://github.com/lbonn/rofi.git "$BUILD_DIR"
+  local i=0
+  until git clone --recurse-submodules https://github.com/lbonn/rofi.git "$BUILD_DIR"; do
+    sleep 5
+    i=$((i + 1))
+    if [ $i -eq 10 ]; then
+      echo "Failed to clone rofi repository due to a network issue."
+      exit 1
+    fi
+
+  done
 
   meson setup "$BUILD_DIR/build" "$BUILD_DIR" --prefix=/usr/local
   sudo ninja -C "$BUILD_DIR/build" install

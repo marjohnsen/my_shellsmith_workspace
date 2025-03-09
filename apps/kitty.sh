@@ -4,13 +4,11 @@ source "$SHELLSMITH_UTILS/safe_symlink.sh"
 
 build_kitty() {
   sudo apt-get build-dep -y kitty
-  sudo apt-get install -y \
-    libglfw3 libgl1-mesa-glx mesa-utils libegl1-mesa
+  sudo apt-get install -y libglfw3 libgl1-mesa-glx mesa-utils libegl1-mesa
   rm -rf "$HOME/.local/kitty.app"
-  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-  safe_symlink "$HOME/.local/kitty.app/bin/kitty" "/usr/local/bin/kitty"
-  safe_symlink "$HOME/.local/kitty.app/bin/kitten" "/usr/local/bin/kitten"
-
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+  safe_symlink "$HOME/.local/kitty.app/bin/kitty" "$HOME/.local/bin/kitty"
+  safe_symlink "$HOME/.local/kitty.app/bin/kitten" "$HOME/.local/bin/kitten"
 }
 
 configure_kitty() {
@@ -34,5 +32,5 @@ configure_theme() {
 }
 
 build_kitty
-#configure_kitty
-#configure_theme
+configure_kitty
+configure_theme
