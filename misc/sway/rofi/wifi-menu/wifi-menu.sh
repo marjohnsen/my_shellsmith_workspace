@@ -125,7 +125,7 @@ connect_to_new_network() {
   fi
 }
 
-delete_saved_network_menu() {
+djjelete_saved_network_menu() {
   local saved_networks
   local delete_selected
   local confirmation

@@ -3,7 +3,7 @@ bar {
 
     font "JetBrainsMono Nerd Font 10"
 
-    status_command while ~/.config/sway/scripts/swaybar_input.sh; do sleep 1; done
+    status_command while ~/.config/sway/swaybar/input.sh; do sleep 1; done
 
     bindsym button1 exec --no-startup-id ~/.config/rofi/wifi-menu/wifi-menu.sh yes
     bindsym button3 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle

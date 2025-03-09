@@ -23,7 +23,7 @@ client.focused #FF8800 #FF8800 #FF8800 #FF8800
 client.unfocused #444444 #444444 #444444 #444444
 
 # Wallpaper
-output * bg ~/.config/sway/misc/wallpaper.jpg fill
+output * bg $HOME/.config/sway/wallpaper.jpg fill
 
 
 #--------------------------#
@@ -49,6 +49,7 @@ bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
+
 
 #--------------------------#
 #        Workspaces        #
@@ -76,6 +77,7 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
+
 #--------------------------#
 #         Layouts          #
 #--------------------------#
@@ -89,6 +91,7 @@ bindsym $mod+f fullscreen
 bindsym $mod+tab focus mode_toggle
 bindsym $mod+a focus parent
 
+
 #--------------------------#
 #       Scratchpad         #
 #--------------------------#
@@ -96,6 +99,7 @@ bindsym $mod+a focus parent
 bindsym $mod+minus move scratchpad
 bindsym $mod+equal floating toggle
 bindsym $mod+space scratchpad show
+
 
 #--------------------------#
 #      Resize Mode         #
@@ -111,15 +115,17 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+
 #--------------------------#
 #          waybar          #
 #--------------------------#
 
-include $HOME/.config/sway/bar
+include $HOME/.config/sway/swaybar/bar
+
 
 #--------------------------#
 #       lock-screen        #
 #--------------------------#
 
-bindsym $mod+escape exec ~/.config/sway/misc/lock_screen.sh
+bindsym $mod+escape exec $HOME/.config/sway/lock_screen.sh
 

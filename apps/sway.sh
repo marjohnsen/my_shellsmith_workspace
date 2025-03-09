@@ -2,7 +2,6 @@
 : zsh python
 
 source "$SHELLSMITH_UTILS/safe_symlink.sh"
-source "$SHELLSMITH_UTILS/meson_build_and_ninja_install.sh"
 
 apt_get_install() {
   # Update system
@@ -10,7 +9,7 @@ apt_get_install() {
 
   # Install Sway
   sudo apt-get install -y \
-    sway swaybg swaylock swayidle xwayland waybar
+    sway swaybg swaylock swayidle xwayland libwayland-dev wayland-protocols
 
   # Audio System
   sudo apt-get install -y \
@@ -40,8 +39,35 @@ apt_get_install() {
   systemctl --user enable --now pipewire wireplumber pipewire-pulse
 }
 
-build_and_install_wl_rofi() {
-  meson_build_and_ninja_install "https://github.com/lbonn/rofi.git"
+build_and_install_wayland_rofi() {
+  sudo apt-get build-dep -y rofi
+  sudo apt-get install -y libxcb-keysyms1-dev
+
+  BUILD_DIR="$HOME/build/rofi"
+
+  rm -rf "$BUILD_DIR"
+  mkdir -p "$BUILD_DIR"
+
+  git clone --recurse-submodules https://github.com/lbonn/rofi.git "$BUILD_DIR"
+
+  meson setup "$BUILD_DIR/build" "$BUILD_DIR" --prefix=/usr/local
+  sudo ninja -C "$BUILD_DIR/build" install
+}
+
+setup_swayfx() {
+  mkdir -p "$HOME/.config/sway"
+  mkdir -p "$HOME/.config/mako"
+  mkdir -p "$HOME/.config/rofi"
+
+  safe_symlink "$SHELLSMITH_DOTFILES/sway/sway" "$HOME/.config/sway/config"
+  safe_symlink "$SHELLSMITH_DOTFILES/sway/mako" "$HOME/.config/mako/config"
+
+  safe_symlink "$SHELLSMITH_MISC/lock_screen.sh" "$HOME/.config/sway/lock_screen.sh"
+  safe_symlink "$SHELLSMITH_MISC/wallpaper.jpg" "$HOME/.config/sway/wallpaper.jpg"
+  safe_symlink "$SHELLSMITH_MISC/swaybar" "$HOME/.config/sway/swaybar"
+  safe_symlink "$SHELLSMITH_MISC/rofi" "$HOME/.config/rofi"
 }
 
 apt_get_install
+build_and_install_wayland_rofi
+setup_swayfx
