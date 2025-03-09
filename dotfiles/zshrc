@@ -1,5 +1,5 @@
 # PATH
-export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin:$HOME/.local/bin"
 
 # Oh my zsh 
 export ZSH=$HOME/.oh-my-zsh
