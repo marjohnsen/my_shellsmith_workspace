@@ -20,8 +20,12 @@ return {
       vim.keymap.set("v", "<leader>mv", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Run visual", silent = true })
       vim.keymap.set("n", "<leader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
       vim.keymap.set("n", "<leader>mb", ":MoltenOpenInBrowser<CR>", { desc = "open output in browser", silent = true })
-      vim.keymap.set("n", "<leader>mh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
-      vim.keymap.set("n", "<leader>mi", ":MoltenInterrupt<CR>", { desc = "Run code cell", silent = true })
+      vim.keymap.set("n", "<leader>mi", ":MoltenImagePopup<CR>", { desc = "open output as image", silent = true })
+      vim.keymap.set("n", "<leader>mh", ":MoltenHideOutput<CR>", { desc = "Hide output window", silent = true })
+      vim.keymap.set("n", "<leader>mx", ":MoltenInterrupt<CR>", { desc = "Interupt cell", silent = true })
+      vim.keymap.set("n", "<leader>mI", ":MoltenInit<CR>", { desc = "Init kernel", silent = true })
+      vim.keymap.set("n", "<leader>mR", ":MoltenRestart<CR>", { desc = "Restart kernel", silent = true })
+      vim.keymap.set("n", "<leader>mD", ":MoltenDeinit<CR>", { desc = "Deinit kernel", silent = true })
     end,
   },
   {
