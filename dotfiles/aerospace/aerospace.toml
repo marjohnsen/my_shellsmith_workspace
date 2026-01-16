@@ -30,6 +30,8 @@ alt-s = 'layout v_accordion'
 alt-w = 'layout h_accordion'
 alt-e = 'layout tiles horizontal vertical'
 
+
+
 alt-shift-space = 'layout floating tiling'
 
 alt-1 = 'workspace 1'

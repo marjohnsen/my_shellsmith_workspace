@@ -50,3 +50,6 @@ alias vi=nvim
 
 # batcat
 export MANROFFOPT="-c"
+
+# gnu sed
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"

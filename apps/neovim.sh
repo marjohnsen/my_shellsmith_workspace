@@ -15,9 +15,9 @@ brew_install() {
   done
 
   # Install missing casks
-  #  for cask in "${CASKS[@]}"; do
-  #    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
-  #  done
+  for cask in "${CASKS[@]}"; do
+    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
+  done
 }
 
 install_dependencies() {
@@ -28,7 +28,7 @@ install_dependencies() {
 install_neovim() {
   [ -d "/opt/nvim" ] && sudo rm -rf /opt/nvim ~/.local/share/nvim ~/.cache/nvim
   TMPDIR=$(mktemp -d /tmp/nvim.XXXXXX)
-  curl -L -o "$TMPDIR/nvim-macos-arm64.tar.gz" https://github.com/neovim/neovim/releases/download/stable/nvim-macos-arm64.tar.gz
+  curl -L -o "$TMPDIR/nvim-macos-arm64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz
   tar -xzf "$TMPDIR/nvim-macos-arm64.tar.gz" -C "$TMPDIR"
   sudo mkdir -p /opt/nvim
   sudo rm -rf /opt/nvim/*
